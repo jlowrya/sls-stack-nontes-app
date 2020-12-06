@@ -33,7 +33,7 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
         - dynamodb:DescribeTable
-      resource: "arn:aws:dynamodb:us-east-1:916550796589:table/notes"
+      Resource: "arn:aws:dynamodb:us-east-1:916550796589:table/notes"
 
 
 functions:
@@ -43,5 +43,13 @@ functions:
       - http:
           path: notes
           method: post
+          cors: true
+          authorizer: aws_iam
+  get:
+    handler: get.main
+    events:
+      - http:
+          path: notes/{id}
+          method: get
           cors: true
           authorizer: aws_iam
